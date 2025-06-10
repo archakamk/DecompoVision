@@ -7,15 +7,9 @@ class DecompoVisionModel(nn.Module):
     def __init__(self):
         super().__init__()
         self.encoder = Encoder()
-        self.decoder_albedo = Decoder()
-        self.decoder_shading = Decoder()
-        self.decoder_shadow = Decoder()
-        self.decoder_specular = Decoder()
+        self.decoder = Decoder()
 
     def forward(self, x):
         features = self.encoder(x)
-        albedo = self.decoder_albedo(features)
-        shading = self.decoder_shading(features)
-        shadow = self.decoder_shadow(features)
-        specular = self.decoder_specular(features)
-        return albedo, shading, shadow, specular
+        last_feature_map = features[-1]
+        return self.decoder(last_feature_map)
