@@ -3,7 +3,6 @@ import cv2
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    x = []
     image_path = "indoor_room.jpg"
     img, outputs = run_inference(image_path)
     titles = ["Input", "Albedo", "Shading", "Shadow", "Specular"]
