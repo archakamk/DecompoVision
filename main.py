@@ -1,10 +1,10 @@
-'''import torch
+import torch
 from torchvision import transforms
 from PIL import Image
 import matplotlib.pyplot as plt
 from models.model import DecompoVisionModel
 
-image_path = "room.jpg"
+image_path = "indoor_room.jpg"
 image = Image.open(image_path).convert("RGB")
 
 transform = transforms.Compose([
@@ -48,41 +48,5 @@ plt.subplot(2, 3, 5)
 show_tensor(specular, "Specular")
 
 plt.tight_layout()
-plt.show()'''
-
-
-import matplotlib.pyplot as plt
-from PIL import Image
-from src.inference import run_inference
-
-def show_output(tensor, title, idx):
-    image = tensor.squeeze(0).permute(1, 2, 0).cpu().numpy()
-    image = (image - image.min()) / (image.max() - image.min() + 1e-5)
-    plt.subplot(2, 3, idx)
-    plt.imshow(image)
-    plt.title(title)
-    plt.axis('off')
-
-if __name__ == "__main__":
-    image_path = "indoor_room.jpg"  # Replace with your image
-    original_image = Image.open(image_path).convert("RGB")
-
-    albedo, shading, shadow, specular = run_inference(image_path)
-
-    plt.figure(figsize=(12, 8))
-
-    # Display original image
-    plt.subplot(2, 3, 1)
-    plt.imshow(original_image)
-    plt.title("Original Image")
-    plt.axis('off')
-
-    # Display model outputs
-    show_output(albedo, "Albedo", 2)
-    show_output(shading, "Shading", 3)
-    show_output(shadow, "Shadow", 4)
-    show_output(specular, "Specular", 5)
-
-    plt.tight_layout()
-    plt.show()
+plt.show()
 

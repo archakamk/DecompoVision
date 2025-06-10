@@ -2,7 +2,6 @@ import torch.nn as nn
 from models.encoder import Encoder
 from models.decoder import Decoder
 
-# Inside model.py
 class DecompoVisionModel(nn.Module):
     def __init__(self):
         super().__init__()
@@ -11,5 +10,6 @@ class DecompoVisionModel(nn.Module):
 
     def forward(self, x):
         features = self.encoder(x)
-        last_feature_map = features[-1]
-        return self.decoder(last_feature_map)
+        last_feature = features[-1]
+        outputs = self.decoder(last_feature)
+        return outputs
